@@ -18,13 +18,14 @@ class FileController {
         })
         .catch(next)
     }
-    static create (req, res, next) {
-        const { url, user_id } = req.body
+    static upload (req, res, next) {
+        const url = req.file.cloudStoragePublicUrl
+        const { user_id } = req.body
         File.create({ url, user_id })
         .then(file => {
             res.status(200).json(file)
         })
-        .catch(next({ msg: 'Failed To Create' }))
+        .catch(next({ msg: 'Failed To Upload' }))
     }
 }
 
