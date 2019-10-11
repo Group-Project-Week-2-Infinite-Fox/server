@@ -18,13 +18,8 @@ const authorization = (req, res, next) => {
                 where: { _id: req.loggedUser._id }
             }
         )
-        .then((user) => {
-            if (user) {
-                next()
-            } else {
-                next({ message: 'Please Sign In First!' })
-            }
-        }).catch(next)
+        .then(next())
+        .catch(next)
     }
 
 module.exports = { authentication, authorization }
