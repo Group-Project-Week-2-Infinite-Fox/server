@@ -11,7 +11,11 @@ class FileController {
                 rating.forEach(number => {
                     averageRating += number
                 })
-                averageRating = averageRating / rating.length
+                if (rating.length === 0) {
+                    averageRating = 0
+                } else {
+                    averageRating = averageRating / rating.length
+                }
                 filesData.push({ _id, url, user_id, averageRating })
             })
             res.status(200).json(filesData)
