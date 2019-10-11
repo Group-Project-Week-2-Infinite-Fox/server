@@ -20,12 +20,21 @@ class FileController {
     }
     static upload (req, res, next) {
         const url = req.file.cloudStoragePublicUrl
-        const { user_id } = req.body
+        const user_id = req.loggedUser._id
         File.create({ url, user_id })
         .then(file => {
             res.status(200).json(file)
         })
-        .catch(next({ msg: 'Failed To Upload' }))
+        .catch(next)
+    }
+    static addRating(req, res, next) {
+        const { rating } = req.body
+        const { id } = req.params
+        File.updateOne({ _id: id }, { $push: { rating } }).exec()
+        .then(file => {
+            res.status(200).json({ msg: 'Successfully Rated!' })
+        })
+        .catch(next)
     }
 }
 

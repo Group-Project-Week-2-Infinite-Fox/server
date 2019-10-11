@@ -9,7 +9,9 @@ class UserController {
         const { email, password } = req.body
         User.findOne({ email }).exec()
         .then(user => {
-            if (user && comparePassword(password, user.password)) {
+            if (!user) {
+                next({ msg: 'User Is Not Registered' })
+            } else if (user && comparePassword(password, user.password)) {
                 const { _id, email, password } = user
                 const token = encodeToken({ _id, email, password })
                 res.status(200).json({
@@ -27,7 +29,7 @@ class UserController {
         User.findOne({ email }).exec()
         .then(user => {
             if (user) {
-                next({ msg: 'User Is Already Taken' })
+                next({ msg: 'E-mail Is Already Taken' })
             } else {
                 User.create({ email, password })
                 .then(user => {
