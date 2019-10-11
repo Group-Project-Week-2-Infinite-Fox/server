@@ -35,4 +35,4 @@ app.use('/', routes)
 //ERROR HANDLER MIDDLEWARE
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log(`listening at port PORT`))
+app.listen(PORT, () => console.log(`listening at port ${PORT}`))
