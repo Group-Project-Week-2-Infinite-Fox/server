@@ -6,13 +6,13 @@ class FileController {
         File.find().exec()
         .then(files => {
             files.forEach(file => {
-                const { url, user_id, rating } = file
+                const { _id, url, user_id, rating } = file
                 let averageRating = null
                 rating.forEach(number => {
                     averageRating += number
                 })
                 averageRating = averageRating / rating.length
-                filesData.push({ url, user_id, averageRating })
+                filesData.push({ _id, url, user_id, averageRating })
             })
             res.status(200).json(filesData)
         })
